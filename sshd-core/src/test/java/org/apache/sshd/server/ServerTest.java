@@ -106,6 +106,7 @@ public class ServerTest extends BaseTestSupport {
     @Before
     public void setUp() throws Exception {
         sshd = setupTestServer();
+        sshd.setPort(22);
         sshd.setShellFactory(new TestEchoShellFactory());
         client = setupTestClient();
     }
@@ -245,7 +246,7 @@ public class ServerTest extends BaseTestSupport {
 
     @Test
     public void testIdleTimeout() throws Exception {
-        final long testIdleTimeout = 2500L;
+        final long testIdleTimeout = 100000l;
         CoreModuleProperties.IDLE_TIMEOUT.set(sshd, Duration.ofMillis(testIdleTimeout));
         AtomicReference<TimeoutIndicator> timeoutHolder = new AtomicReference<>(TimeoutIndicator.NONE);
         CountDownLatch latch = new CountDownLatch(1);
